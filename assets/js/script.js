@@ -1,6 +1,9 @@
 //this variable will hold the score, and eventually get stored in localStorage.
 var score=0;
 
+//used as a counter to iterate through the 'if' statement that's used later.
+var questionNumber=0
+
 //counter for the timer.
 var timeLeft= 300
 
@@ -10,25 +13,30 @@ var penalty = function(){
 }
 
 //following code will make radio buttons that will be appended to the HTML.
-var radioButton1 = document.createElement("Input");
-    radioButton1.setAttribute("type","radio");
-    radioButton1.setAttribute("name", "buttons");
-    radioButton1.classList.add("buttons");
+var buttonA = document.createElement("button");
+    buttonA.textContent="A"
+    buttonA.setAttribute("type", "button");
+    buttonA.setAttribute("id", "option-1");
+    buttonA.classList.add("buttons");
 
-var radioButton2 = document.createElement("Input");
-    radioButton2.setAttribute("type","radio");
-    radioButton2.setAttribute("name", "buttons")
-    radioButton2.classList.add("buttons");
 
-var radioButton3 = document.createElement("Input");
-    radioButton3.setAttribute("type","radio");
-    radioButton3.setAttribute("name", "buttons");
-    radioButton3.classList.add("buttons");
+var buttonB = document.createElement("button");
+    buttonB.setAttribute("type","button");
+    buttonB.setAttribute("id", "option-2");
+    buttonB.classList.add("buttons");
+    buttonB.textContent="B"
 
-var radioButton4 = document.createElement("Input");
-    radioButton4.setAttribute("type","radio");
-    radioButton4.setAttribute("name", "buttons");
-    radioButton4.classList.add("buttons");
+var buttonC = document.createElement("button");
+    buttonC.setAttribute("type","button");
+    buttonC.setAttribute("id", "option-3");
+    buttonC.classList.add("buttons");
+    buttonC.textContent="C"
+
+var buttonD = document.createElement("button");
+    buttonD.setAttribute("type","button");
+    buttonD.setAttribute("id", "option-4");
+    buttonD.classList.add("buttons");
+    buttonD.textContent="D"
 
 //this is an array that will hold the answers. the idea is that all the index values of the question, 
 //options, and answers array will match up, which will make it easier to create iterate in an 
@@ -84,8 +92,7 @@ var startQuiz = function(){
     //clears the descripotion of the quiz.
     $(".quiz-description").text("");
     
-    //used as a counter to iterate through the 'if' statement that's used later.
-    var questionNumber=0
+    
     
     //variables created to target specific HTML elements that will be alter later on in the 'if' statement.
     var optionsDiv = document.querySelector(".options");
@@ -104,11 +111,11 @@ var startQuiz = function(){
 
 
     
-    $(".Next").on('click', function(){
+    $(".Next",).on('click', function(){
 
         nextButton.innerHTML="next question"
 
-        
+  
         //clears values from previous iteration.
         $(".questions").text("")
         $(".button-A").text("");
@@ -121,25 +128,23 @@ var startQuiz = function(){
             console.log(questionNumber)
             
             $(".questions").append("<div>" + questionsArray[questionNumber] + "</div>");
-            $(".button-A").append(radioButton1 ,"   ", "<span>"+buttonAArray[questionNumber]+"</span>");
-            $(".button-B").append(radioButton2 ,"   ", "<span>"+buttonBArray[questionNumber]+"</span>");
-            $(".button-C").append(radioButton3 ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
-            $(".button-D").append(radioButton4 ,"   ", "<span>"+buttonDArray[questionNumber]+"</span>");
+            $(".button-A").append(buttonA ,"   ", "<span>"+buttonAArray[questionNumber]+"</span>");
+            $(".button-B").append(buttonB ,"   ", "<span>"+buttonBArray[questionNumber]+"</span>");
+            $(".button-C").append(buttonC ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
+            $(".button-D").append(buttonD ,"   ", "<span>"+buttonDArray[questionNumber]+"</span>");
 
-            if(questionNumber==0 ){
-                score++
-                console.log("the score is " + score)
-            }
-            if(questionNumber==1){
-                score++
-                console.log("The Score is " + score)
-            }
-            if(questionNumber==2){
-                score++
-                console.log("the score is "+ score)
-                timeLeft=0
-            }
+            $("#option-1").on('click', function(){
+                if(questionNumber==0){
+                questionNumber++
+                score++}
+                 console.log("this is the  score "+score)
+
+
+                })
+
             
+
+
 
 
             questionNumber++;
