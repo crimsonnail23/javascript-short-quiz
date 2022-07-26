@@ -12,7 +12,7 @@ var penalty = function(){
     timeLeft -=50
 }
 
-//following code will make radio buttons that will be appended to the HTML.
+//following code will make buttons that will be appended to the HTML.
 var buttonA = document.createElement("button");
     buttonA.textContent="A"
     buttonA.setAttribute("type", "button");
@@ -55,14 +55,6 @@ var answerArray=["Batman", "Selina Kyle", "Robin"];
 //this is an array that will hold the questions. all values are placeholders.
 var questionsArray=["What is the alter ego of Bruce Wayne?", "What is Catwoman's real identity?", "Who is Batman's most well known sidekick?"];
 
-//this pretty much starts everything once it's clicked. it starts the 
-//countdown and the quiz.
-$("#start").click(function(){
-    event.preventDefault();
-    console.log("this happens first");
-
-    startQuiz();
-})
 
 // this starts the countdown once the start button is clicked. 
 var countdown = function(){
@@ -84,73 +76,82 @@ var countdown = function(){
     }, 1000)
 }
 
+//this function will create the buttons and questions when it's run.
+var quizMeat = function(){
+    //variables created to target specific HTML elements that will be alter later on in the 'if' statement.
+ 
+    var questionsDiv = document.querySelector(".questions");
+
+  
+    //clears values from previous iteration.
+    $(".questions").text("")
+    $(".button-A").text("");
+    $(".button-B").text("");
+    $(".button-C").text("");
+    $(".button-D").text("");
+    
+    //iterates through each question, and option on clicking the Next Button.
+    if(questionNumber<questionsArray.length){
+        console.log(questionNumber)
+        
+        $(".questions").append("<div>" + questionsArray[questionNumber] + "</div>");
+        $(".button-A").append(buttonA ,"   ", "<span>"+buttonAArray[questionNumber]+"</span>");
+        $(".button-B").append(buttonB ,"   ", "<span>"+buttonBArray[questionNumber]+"</span>");
+        $(".button-C").append(buttonC ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
+        $(".button-D").append(buttonD ,"   ", "<span>"+buttonDArray[questionNumber]+"</span>");
+
+        $("#option-1").on('click', function(){
+                
+            //following 'if' statement doesn't work. maybe use a while loop?
+            //following code will check to see which question is being iterated, and if the correct button is pressed,
+            //the score will increase and move to the next question.
+            if(questionNumber===0){
+                score++
+                console.log("updated score: "+score)
+            }
+            console.log("this function might be working.")
+            quizMeat();    
+
+
+            })
+
+    questionNumber++
+    
+}}
+
 //once the start button is clicked, this function will run and start the quiz. 
-var startQuiz = function(){
+startQuiz = function(){
     //calls the countdown function so the timer starts.
     countdown();
     
     //clears the descripotion of the quiz.
     $(".quiz-description").text("");
     
-    
-    
-    //variables created to target specific HTML elements that will be alter later on in the 'if' statement.
-    var optionsDiv = document.querySelector(".options");
-    //var questionsDiv = document.querySelector(".questions");
-    
     // removes the start button from the page. 
     var removeButton = document.getElementById('start')
     removeButton.remove();
+    var optionsDiv = document.querySelector(".options");
     
-    //creates new button. 
-    var nextButton = document.createElement("button");
-        nextButton.type="button"
-        nextButton.innerHTML="Press for First Question"
-        nextButton.classList.add("Next")
-        optionsDiv.appendChild(nextButton);
+   //creates new button. 
+   var nextButton = document.createElement("button");
+   nextButton.type="button"
+   nextButton.innerHTML="Press for First Question"
+   nextButton.classList.add("Next")
+   optionsDiv.appendChild(nextButton);
 
+  nextButton.innerHTML="next question"
 
     
-    $(".Next",).on('click', function(){
-
-        nextButton.innerHTML="next question"
-
-  
-        //clears values from previous iteration.
-        $(".questions").text("")
-        $(".button-A").text("");
-        $(".button-B").text("");
-        $(".button-C").text("");
-        $(".button-D").text("");
-        
-        //iterates through each question, and option on clicking the Next Button.
-        if(questionNumber<questionsArray.length){
-            console.log(questionNumber)
-            
-            $(".questions").append("<div>" + questionsArray[questionNumber] + "</div>");
-            $(".button-A").append(buttonA ,"   ", "<span>"+buttonAArray[questionNumber]+"</span>");
-            $(".button-B").append(buttonB ,"   ", "<span>"+buttonBArray[questionNumber]+"</span>");
-            $(".button-C").append(buttonC ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
-            $(".button-D").append(buttonD ,"   ", "<span>"+buttonDArray[questionNumber]+"</span>");
-
-            $("#option-1").on('click', function(){
-                if(questionNumber==0){
-                questionNumber++
-                score++}
-                 console.log("this is the  score "+score)
-
-
-                })
-
-            
+    $(".Next").on('click', (quizMeat))
+    }   
 
 
 
+//this pretty much starts everything once it's clicked. it starts the 
+//countdown and the quiz.
+$("#start").click(function(){
+    event.preventDefault();
+    console.log("this happens first");
 
-            questionNumber++;
-
-            
-        }
-    })   
-
-}
+    startQuiz();
+})
