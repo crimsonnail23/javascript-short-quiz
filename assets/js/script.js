@@ -5,14 +5,14 @@ var score=0;
 var questionNumber=0
 
 //counter for the timer.
-var timeLeft= 300
+var timeLeft= 30
 
 //this will subtract 50 seconds from the timer for the wrong answer. 
 var penalty = function(){
     timeLeft -=50
 }
 
-//following code will make buttons that will be appended to the HTML.
+//following code will make buttons that will be appended to the HTML later in the code.
 var buttonA = document.createElement("button");
     buttonA.textContent="A"
     buttonA.setAttribute("type", "button");
@@ -22,26 +22,22 @@ var buttonA = document.createElement("button");
 
 var buttonB = document.createElement("button");
     buttonB.setAttribute("type","button");
-    buttonB.setAttribute("id", "option-2");
+    buttonB.setAttribute("id", "option-B");
     buttonB.classList.add("buttons");
     buttonB.textContent="B"
 
 var buttonC = document.createElement("button");
     buttonC.setAttribute("type","button");
-    buttonC.setAttribute("id", "option-3");
+    buttonC.setAttribute("id", "option-C");
     buttonC.classList.add("buttons");
     buttonC.textContent="C"
 
 var buttonD = document.createElement("button");
     buttonD.setAttribute("type","button");
-    buttonD.setAttribute("id", "option-4");
+    buttonD.setAttribute("id", "option-D");
     buttonD.classList.add("buttons");
     buttonD.textContent="D"
 
-//this is an array that will hold the answers. the idea is that all the index values of the question, 
-//options, and answers array will match up, which will make it easier to create iterate in an 
-//if statement later on. all values are placeholders.
-var answerArray=["Batman", "Selina Kyle", "Robin"];
 
 //these arrays will hold all the possible options for each question. 
 //"option A" will be the value for all the A options for each of the questions. 
@@ -56,6 +52,9 @@ var answerArray=["Batman", "Selina Kyle", "Robin"];
 var questionsArray=["What is the alter ego of Bruce Wayne?", "What is Catwoman's real identity?", "Who is Batman's most well known sidekick?"];
 
 
+
+
+
 // this starts the countdown once the start button is clicked. 
 var countdown = function(){
     console.log("this happens second");
@@ -68,9 +67,9 @@ var countdown = function(){
         } else if(timeLeft == 1){
             $("#timer").text(timeLeft + " second remaining")
             timeLeft--;
-        } else{
-
-            $("#timer").text("time's up")
+        } else if(timeLeft==0){
+            endQuiz();
+            $("#timer").text(timeLeft+" seconds remaining. "+"Game Over!")
             clearInterval(startTimer)
         }
     }, 1000)
@@ -80,8 +79,10 @@ var countdown = function(){
 var quizMeat = function(){
     //variables created to target specific HTML elements that will be alter later on in the 'if' statement.
  
-    var questionsDiv = document.querySelector(".questions");
-
+    if(questionNumber==0){
+    var removeStart = document.querySelector("#start");
+     removeStart.remove();
+    }
   
     //clears values from previous iteration.
     $(".questions").text("")
@@ -90,8 +91,8 @@ var quizMeat = function(){
     $(".button-C").text("");
     $(".button-D").text("");
     
-    //iterates through each question, and option on clicking the Next Button.
-    if(questionNumber<questionsArray.length){
+    //iterates through each question, and option on clicking the Next Button. added a '+1' so that after the final question, it iterates one more time and clears everything.
+    if(questionNumber<questionsArray.length+1){
         console.log(questionNumber)
         
         $(".questions").append("<div>" + questionsArray[questionNumber] + "</div>");
@@ -110,50 +111,60 @@ var quizMeat = function(){
                 console.log("updated score: "+score)
                 quizMeat();
             } else{
-            //console.log("this function might be working.")
-            penalty();
-            quizMeat();    
+                questionNumber++
+                penalty();
+                quizMeat();    
             }
 
             })
-
-
+        $("#option-B").on('click', function(){
+            if(questionNumber==1){
+                questionNumber++
+                score++
+                console.log("updated score: "+score)
+                quizMeat();
+            } else{
+                questionNumber++
+                penalty();
+                quizMeat();   
+            }
+        })
+        //after the final array question, the code will iterate one more time, and run this block.
+        if(questionNumber==questionsArray.length){
+            console.log("final score: "+ score);
+            timeLeft=0;
+            endQuiz();
+        }
     
 }}
 
 //once the start button is clicked, this function will run and start the quiz. 
 startQuiz = function(){
-    //calls the countdown function so the timer starts.
-    countdown();
+
     
     //clears the descripotion of the quiz.
     $(".quiz-description").text("");
-    
-    // removes the start button from the page. 
-    var removeButton = document.getElementById('start')
-    removeButton.remove();
-    var optionsDiv = document.querySelector(".options");
-    
-   //creates new button. 
-   var nextButton = document.createElement("button");
-   nextButton.type="button"
-   nextButton.innerHTML="Press for First Question"
-   nextButton.classList.add("Next")
-   optionsDiv.appendChild(nextButton);
+    //starts the timer.
+    countdown();
+    //starts the quiz proper.
+    quizMeat();
 
-  nextButton.innerHTML="next question"
-
-    
-    $(".Next").on('click', (quizMeat))
-    }   
-
-
+}
 
 //this pretty much starts everything once it's clicked. it starts the 
 //countdown and the quiz.
-$("#start").click(function(){
+$("#start").click(function(event){
     event.preventDefault();
     console.log("this happens first");
 
     startQuiz();
 })
+
+var endQuiz= function(){
+    //clears everything out.
+    $(".questions").remove();
+    $(".button-A").remove();
+    $(".button-B").remove();
+    $(".button-C").remove();
+    $(".button-D").remove(); 
+}
