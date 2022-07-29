@@ -16,7 +16,7 @@ var penalty = function(){
 var buttonA = document.createElement("button");
     buttonA.textContent="A"
     buttonA.setAttribute("type", "button");
-    buttonA.setAttribute("id", "option-1");
+    buttonA.setAttribute("id", "option-A");
     buttonA.classList.add("buttons");
 
 
@@ -100,22 +100,24 @@ var quizMeat = function(){
         $(".button-C").append(buttonC ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
         $(".button-D").append(buttonD ,"   ", "<span>"+buttonDArray[questionNumber]+"</span>");
 
-        $("#option-1").on('click', function(){
-                
-            //following 'if' statement doesn't work. maybe use a while loop?
-            //following code will check to see which question is being iterated, and if the correct button is pressed,
-            //the score will increase and move to the next question.
+        
+        //following code will check to see which question is being iterated, and if the correct button is pressed,
+        //the score will increase and move to the next question.
+        $("#option-A").on('click', function(){
             if(questionNumber===0){
+                questionNumber++
                 score++
                 console.log("updated score: "+score)
-            }
-            console.log("this function might be working.")
+                quizMeat();
+            } else{
+            //console.log("this function might be working.")
+            penalty();
             quizMeat();    
-
+            }
 
             })
 
-    questionNumber++
+
     
 }}
 
