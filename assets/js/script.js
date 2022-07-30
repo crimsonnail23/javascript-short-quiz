@@ -12,6 +12,8 @@ var penalty = function(){
     timeLeft -=50
 }
 
+var divMakerEl= $("<div/>")
+
 //following code will make buttons that will be appended to the HTML later in the code.
 var buttonA = document.createElement("button");
     buttonA.textContent="A"
@@ -43,13 +45,14 @@ var buttonD = document.createElement("button");
 //"option A" will be the value for all the A options for each of the questions. 
 //all values are placeholders.
 
-    var buttonAArray =["batman", "gail simone", "Dick Clark"]
-    var buttonBArray = ["Hush", "Selina Kyle", "Dick Grayson"]
-    var buttonCArray = ["Alfred", "Carrie-Ann", "Tim Drake"]
-    var buttonDArray = ["Terry McGinnis", "Barbara Gordon", "Tim Curry"]
+    var buttonAArray =["Batman", "Gail simone", "Dick Clark", "Kite Man", "Zatanna"]
+    var buttonBArray = ["Hush", "Selina Kyle", "Dick Grayson", "Magneto", "Professor Woodrue"]
+    var buttonCArray = ["Alfred", "Carrie-Ann", "Tim Drake", "Joker", "Pepper Potts"]
+    var buttonDArray = ["Terry McGinnis", "Barbara Gordon", "Tim Curry", "Christian Bale", "Poison Ivy"]
 
 //this is an array that will hold the questions. all values are placeholders.
-var questionsArray=["What is the alter ego of Bruce Wayne?", "What is Catwoman's real identity?", "Who is Batman's most well known sidekick?"];
+var questionsArray=["What is the alter ego of Bruce Wayne?", "What is Catwoman's real identity?", "Who is Batman's most well known sidekick?", "Who is Batman's most well known villain?", 
+"Who is Batman's most well known plant-based sometimes-villain-sometimes-hero"];
 
 
 
@@ -106,9 +109,9 @@ var quizMeat = function(){
         //the score will increase and move to the next question.
         $("#option-A").on('click', function(){
             if(questionNumber===0){
-                questionNumber++
-                score++
-                console.log("updated score: "+score)
+                questionNumber++;
+                score++;
+                console.log("updated score: "+score);
                 quizMeat();
             } else{
                 questionNumber++
@@ -118,16 +121,39 @@ var quizMeat = function(){
 
             })
         $("#option-B").on('click', function(){
-            if(questionNumber==1){
-                questionNumber++
-                score++
-                console.log("updated score: "+score)
+            if(questionNumber==1 || questionNumber==2){
+                questionNumber++;
+                score++;
+                console.log("updated score: "+score);
+                quizMeat();
+            } else{
+                questionNumber++;
+                penalty();
+                quizMeat();   
+            }
+        })
+        $("#option-C").on('click', function(){
+            if(questionNumber==3){
+                questionNumber++;
+                score++;
+                console.log("update score: "+score);
                 quizMeat();
             } else{
                 questionNumber++
                 penalty();
-                quizMeat();   
+                quizMeat();
             }
+        })
+        $("#option-D").on('click',function(){
+            if(questionNumber==4){
+                questionNumber++;
+                score++;
+                console.log("updated score: "+ score)
+                quizMeat();
+            } else {
+                questionNumber++
+                penalty();
+                quizMeat();}
         })
         //after the final array question, the code will iterate one more time, and run this block.
         if(questionNumber==questionsArray.length){
@@ -160,6 +186,12 @@ $("#start").click(function(event){
     startQuiz();
 })
 
+var finalResults= function(){
+    divMakerEl.addClass("blue black-bg")
+    divMakerEl.text("final score " +score)
+    $("main").prepend(divMakerEl);
+}
+
 var endQuiz= function(){
     //clears everything out.
     $(".questions").remove();
@@ -167,4 +199,6 @@ var endQuiz= function(){
     $(".button-B").remove();
     $(".button-C").remove();
     $(".button-D").remove(); 
+    finalResults();
 }
+
