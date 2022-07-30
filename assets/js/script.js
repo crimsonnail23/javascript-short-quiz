@@ -221,12 +221,12 @@ var savingScore = function(){
 }
 
 var finalResults= function(){
-    console.log("final results")
+    console.log("final results");
 
 }
 
 var hiScoreWinner = function(){
-    console.log("hiScore Winner")
+    console.log("hiScore Winner");
 
 }
 
