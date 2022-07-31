@@ -10,12 +10,12 @@ of where they are in their coding journey.
 
 https://crimsonnail23.github.io/javascript-short-quiz/
 
-# screenshot.
+# screenshots.
 
 ![first screenshot](/assets/images/quiz-screenshot-1.jpg?raw=true)
 
-![second screenshot]
+![second screenshot](/assets/images/quiz-screenshot-2.jpg?raw=true)
 
-![third screenshot]
+![third screenshot](/assets/images/quiz-screenshot-3.jpg?raw=true)
 
-![fourth screenshot]
+![fourth screenshot](/assets/images/quiz-screenshot-4.jpg?raw=true)
