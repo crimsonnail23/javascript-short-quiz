@@ -48,7 +48,7 @@ var buttonD = document.createElement("button");
 //"option A" will be the value for all the A options for each of the questions. 
 //all values are placeholders.
 
-    var buttonAArray =["save to localStorage", "null", "i=1", "saves to sesstion storage", "i don't know... can you repet the question?"]
+    var buttonAArray =["save to localStorage", "null", "i=1", "saves to sesstion storage", "i don't know... can you repeat the question?"]
     var buttonBArray = ["save to the browser until it resets or closes", "0", "i++", "turns integers into string data", "maybe"]
     var buttonCArray = ["saves to a server.", "A", "do nothing, it automatically increases by 1", "turns strings into an integer", "no"]
     var buttonDArray = ["all of the above", "1", "none of the above", "all of the above.", "Yes"]
@@ -134,8 +134,9 @@ var quizMeat = function(){
     //iterates through each question, and option on clicking the Next Button. added a '+1' so that after the final question, it iterates one more time and clears everything.
     if(questionNumber<questionsArray.length+1){
         console.log(questionNumber)
+        var questionBox=$("<div></div>").addClass("question-box").text(questionsArray[questionNumber]);
         
-        $(".questions").append("<div>" + questionsArray[questionNumber] + "</div>");
+        $(".questions").append(questionBox);
         $(".button-A").append(buttonA ,"   ", "<span>"+buttonAArray[questionNumber]+"</span>");
         $(".button-B").append(buttonB ,"   ", "<span>"+buttonBArray[questionNumber]+"</span>");
         $(".button-C").append(buttonC ,"   ", "<span>"+buttonCArray[questionNumber]+"</span>");
@@ -233,9 +234,11 @@ var savingScore = function(){
 
 //following code will show the winner and the score.
 var scoreBoard = function(){
+    var board = $("<div></div>").addClass("board").text("your name and final score: ")
     $(".results").text(localStorage.getItem("winners")+"  "+localStorage.getItem("score"));
     $("#initials").remove();
     $("#winnerWinnerChickenDinner").remove();
+    $("#final-results").prepend(board);
 }
 
 //following code triggers when you don't have the highscore, and shows your current score, and the highscore.
@@ -244,13 +247,13 @@ var finalResults= function(){
     var finalResultsDivEl = $("<div></div").attr("id", "final-results");
     $("main").prepend(finalResultsDivEl);
    //(not part of MVP) var finalResultsPara1El= $("<p></p>").attr("class", "results").text("Highscore: "+ localStorage.getItem("highscore"));
-    var finalResultsPara2El= $("<p></p>").attr("class", "results").text("Your Final Score: "+ score);
+    var finalResultsPara2El= $("<p></p>").attr("class", "results").text("Your Final Score: "+ score +". "+"enter your initials: ");
     var initialsInputEl= $("<input></input").attr("id","initials");
     var initialsButtonEl=$("<button></button>").attr({type:"button", id:"winnerWinnerChickenDinner"}).addClass("buttons").text("Submit");
     //(not part of MVP)$("#final-results").prepend(finalResultsPara1El);
     $("#final-results").append(initialsInputEl);
     $("#final-results").append(initialsButtonEl);
-    $("#final-results").append(finalResultsPara2El);
+    $("#final-results").prepend(finalResultsPara2El);
     $("#winnerWinnerChickenDinner").on('click', function(){
         localStorage.setItem("winners", initialsInputEl.val());
         scoreBoard();

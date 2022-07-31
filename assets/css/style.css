@@ -1,25 +1,30 @@
-body{
-    background:orange;
-    justify-content: center;
-}
-
+/* this is what shows when you first load the page*/
 h1{
     text-align:center;
-    color: white;
-}
-
-span{
-    color: red;
+    font-size:50px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 section{
     margin:auto;
 }
-
+.quiz-description{
+    color: darkblue;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    text-align:center;
+}
+form{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 .buttons{
     color: white;
     background: black;
     list-style-type: none;
+    border-radius: 15px;
+    font-size:20px;
     padding:5px;
     margin: 8px;
 }
@@ -28,6 +33,107 @@ section{
     color:black;
     background: white;
     list-style-type:none;
+    border-radius: 15px;
     padding: 5px;
     margin:8px;
+}
+/* following is for when the quiz starts*/
+#timer{
+    color:red;
+    font-size:20px;
+}
+
+/*next block of code targets the questions themselves*/
+.question-box{
+    font-size:35px;
+    color:green;
+    text-align:center;
+    font-family:'Courier New', Courier, monospace;
+}
+
+/* this is for formatting the possible answers*/
+span{
+    color: rgb(97, 15, 228);
+    font-family: monospace;
+    font-size:23px;
+
+}
+/* following is CSS for the buttons that answer the question */
+#option-A{
+    color: white;
+    background: pink;
+    list-style-type: none;
+    border-radius: 15px;
+    border-color:white;
+    padding:5px;
+    margin: 8px;
+    font-size:30px;
+}
+
+#option-A:hover{
+    color: pink;
+    background: white;
+}
+
+#option-B{
+    color:white;
+    background: purple;
+    list-style-type: none;
+    border-radius: 15px;
+    border-color:white;
+    padding:5px;
+    margin: 8px;
+    font-size:30px;
+}
+#option-B:hover{
+    color:purple;
+    background:white;
+}
+
+#option-C{
+    color:white;
+    background: gray;
+    list-style-type: none;
+    border-radius: 15px;
+    border-color:white;
+    padding:5px;
+    margin: 8px;
+    font-size:30px;
+}
+
+#option-C:hover{
+    color:gray;
+    background:white;
+}
+
+#option-D{
+    color:white;
+    background: lightgreen;
+    list-style-type: none;
+    border-radius: 15px;
+    border-color:white;
+    padding:5px;
+    margin: 8px;
+    font-size:30px;
+}
+
+#option-D:hover{
+    color:lightgreen;
+    background:white;
+}
+
+/* this section is for after the quiz ends, and you have to put in your initials */
+
+#final-results{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    color: lightblue;
+    font-size: 30px;
+}
+
+.results{
+    color: green;
+    font-size: 20px;
+    font-size:30px;
 }
