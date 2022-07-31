@@ -12,7 +12,7 @@ var timeLeft= 300
 
 //this will subtract 50 seconds from the timer for the wrong answer. 
 var penalty = function(){
-    timeLeft -=20
+    timeLeft -=30
 }
 
 
@@ -74,7 +74,7 @@ var countdown = function(){
 
 
     var startTimer = setInterval(function(){
-        if(questionNumber==5){
+        if(questionNumber==questionsArray.length){
             //this is here so that the clock doesn't continue after the quiz is done.
             //if this weren't here, endQuiz would get triggered twice:
             //once when the user finishes the quiz, and again when the clock runs out.
@@ -90,6 +90,10 @@ var countdown = function(){
             $("#timer").text(timeLeft+" seconds remaining. "+"Game Over!");
             clearInterval(startTimer);
             endQuiz();
+        } else if(timeLeft<0){
+            $("#timer").text("too many wrong asnwers! Game Over");
+            clearInterval(startTimer);
+            gameOver();
         }
     }, 1000)
 }
@@ -201,35 +205,75 @@ $("#start").click(function(event){
     startQuiz();
 })
 
+
+var savingScore= function(){
+    localStorage.setItem("score", score);
+    finalResults();
+}
+
+/* code block did not meet MVP.
 //following code will save score. it should save the score if there is no score, but on later playthroughs, it should check the score, and update it if newscore is same or higher.
 var savingScore = function(){
     if(score >= parseInt(localStorage.getItem("highscore"))){
         console.log("true highscore");
         localStorage.setItem("highscore", score);
-        hiScoreWinner();
+        finalResults();
 
     } else if(localStorage.getItem("highscore")===null) {
+        console.log("if statement did NOT trigger")
         console.log("first playthrough");
         localStorage.setItem("highscore", score)
-        hiScoreWinner();
-        console.log("if statement did NOT trigger")
-
+        finalResults();
     } else{
         finalResults();
 
     }
 }
+*/
 
+//following code will show the winner and the score.
+var scoreBoard = function(){
+    $(".results").text(localStorage.getItem("winners")+"  "+localStorage.getItem("score"));
+    $("#initials").remove();
+    $("#winnerWinnerChickenDinner").remove();
+}
+
+//following code triggers when you don't have the highscore, and shows your current score, and the highscore.
 var finalResults= function(){
     console.log("final results");
+    var finalResultsDivEl = $("<div></div").attr("id", "final-results");
+    $("main").prepend(finalResultsDivEl);
+   //(not part of MVP) var finalResultsPara1El= $("<p></p>").attr("class", "results").text("Highscore: "+ localStorage.getItem("highscore"));
+    var finalResultsPara2El= $("<p></p>").attr("class", "results").text("Your Final Score: "+ score);
+    var initialsInputEl= $("<input></input").attr("id","initials");
+    var initialsButtonEl=$("<button></button>").attr({type:"button", id:"winnerWinnerChickenDinner"}).addClass("buttons").text("Submit");
+    //(not part of MVP)$("#final-results").prepend(finalResultsPara1El);
+    $("#final-results").append(initialsInputEl);
+    $("#final-results").append(initialsButtonEl);
+    $("#final-results").append(finalResultsPara2El);
+    $("#winnerWinnerChickenDinner").on('click', function(){
+        localStorage.setItem("winners", initialsInputEl.val());
+        scoreBoard();
+    })
 
 }
 
+/* code block commented out because not part of MVP.
+//following code triggers when you have the highscore, or match with the highscore.
 var hiScoreWinner = function(){
     console.log("hiScore Winner");
 
 }
+*/
 
+var gameOver= function(){
+    $(".questions").remove();
+    $(".button-A").remove();
+    $(".button-B").remove();
+    $(".button-C").remove();
+    $(".button-D").remove(); 
+
+}
 
 var endQuiz= function(){
     //clears everything out.
@@ -240,4 +284,5 @@ var endQuiz= function(){
     $(".button-C").remove();
     $(".button-D").remove(); 
     savingScore();
+
 }
