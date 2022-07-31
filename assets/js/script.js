@@ -48,14 +48,14 @@ var buttonD = document.createElement("button");
 //"option A" will be the value for all the A options for each of the questions. 
 //all values are placeholders.
 
-    var buttonAArray =["Batman", "Gail simone", "Dick Clark", "Kite Man", "Zatanna"]
-    var buttonBArray = ["Hush", "Selina Kyle", "Dick Grayson", "Magneto", "Professor Woodrue"]
-    var buttonCArray = ["Alfred", "Carrie-Ann", "Tim Drake", "Joker", "Pepper Potts"]
-    var buttonDArray = ["Terry McGinnis", "Barbara Gordon", "Tim Curry", "Christian Bale", "Poison Ivy"]
+    var buttonAArray =["save to localStorage", "null", "i=1", "saves to sesstion storage", "i don't know... can you repet the question?"]
+    var buttonBArray = ["save to the browser until it resets or closes", "0", "i++", "turns integers into string data", "maybe"]
+    var buttonCArray = ["saves to a server.", "A", "do nothing, it automatically increases by 1", "turns strings into an integer", "no"]
+    var buttonDArray = ["all of the above", "1", "none of the above", "all of the above.", "Yes"]
 
 //this is an array that will hold the questions. all values are placeholders.
-var questionsArray=["What is the alter ego of Bruce Wayne?", "What is Catwoman's real identity?", "Who is Batman's most well known sidekick?", "Who is Batman's most well known villain?", 
-"Who is Batman's most well known plant-based sometimes-villain-sometimes-hero"];
+var questionsArray=["localStorage.setItem() does what?", "what is the first index number in an array.", "if ' var = i', how can you increase it by 1?", "parseInt() does what?", 
+"can you dynamically create a button and then append it to HTML using Javascript?"];
 
 //following is the answer key:
 /*
